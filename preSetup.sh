@@ -60,15 +60,15 @@ case "$(getPreSetupPhase)" in
     "1")
         # Phase 1:
         # Modify the default configuration to install git and create the user
-        # Executed by root from /tmp/NixosPreSetup
+        # Executed by root from /tmp
         printMessage "Phase 1: Installing git and creating the normal user..."
         
-        # Check that we are in /tmp/NixosPreSetup and are executing the script as ./preSetup.sh...
-        if [ "$(pwd)" != "/tmp/NixosPreSetup" ]; then
-            throwMessage "Phase 1 of the pre-setup must be executed from /tmp/NixosPreSetup as the working directory with the command ./preSetup.sh!"
+        # Check that we are in /tmp and are executing the script as ./preSetup.sh...
+        if [ "$(pwd)" != "/tmp" ]; then
+            throwMessage "Phase 1 of the pre-setup must be executed from /tmp as the working directory with the command ./preSetup.sh!"
         fi
         if [ "$0" != "./preSetup.sh" ]; then
-            throwMessage "Phase 1 of the pre-setup must be executed from /tmp/NixosPreSetup as the working directory with the command ./preSetup.sh!"
+            throwMessage "Phase 1 of the pre-setup must be executed from /tmp as the working directory with the command ./preSetup.sh!"
         fi
 
         configuration="$(cat /etc/nixos/configuration.nix)"
