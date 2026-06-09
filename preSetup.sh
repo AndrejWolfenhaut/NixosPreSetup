@@ -51,6 +51,12 @@ resetPreSetupPhase() {
 
 
 
+if [ "$#" != "2" ]; then
+    throwMessage "Usage: ./preSetup.sh <username> <hostname>"
+fi
+
+
+
 username="$1"
 hostname="$2"
 
@@ -78,7 +84,7 @@ case "$(getPreSetupPhase)" in
         # Create normal user with desired username
         configuration="$configuration"' // { users.users.'"$username"' = { isNormalUser = true; extraGroups = [ "wheel" ]; }; }'
 
-        echo "$configuration" | sudo tee /etc/configuration.nix > /dev/null
+        echo "$configuration" | sudo tee /etc/nixos/configuration.nix > /dev/null
 
         sudo nixos-rebuild switch
 
