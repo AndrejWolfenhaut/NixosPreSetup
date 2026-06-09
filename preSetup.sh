@@ -88,6 +88,9 @@ case "$(getPreSetupPhase)" in
 
         sudo nixos-rebuild switch
 
+        # Set a password for the created user
+        passwd "$username"
+        
         setPreSetupPhase 2
 
         # Copy the script to the newly created home directory (it will be cleaned up from /tmp automatically on reboot...)
@@ -103,8 +106,8 @@ case "$(getPreSetupPhase)" in
         ;;
     "2")
         # Phase 2:
-        # Basic user configuration
-        printMessage "Phase 2: Applying basic user configuration..."
+        # SSH configuration and cloning of setup branch
+        printMessage "Phase 2: Configuring SSH and cloning setup branch..."
 
         # Check that we are in /home/<username> and are executing the script as ./preSetup.sh...
         if [ "$(pwd)" != "/home/$username" ]; then
@@ -114,13 +117,8 @@ case "$(getPreSetupPhase)" in
             throwMessage "Phase 2 of pre-setup must be executed from the home directory /home/$username as the working directory with the command ./preSetup.sh!"
         fi
 
-        # Set a password for the normal user
-        printMessage "Phase 2.1: Creating password..."
-
-        passwd
-
         # Generate an SSH key pair to access GitHub
-        printMessage "Phase 2.2: Configuring SSH..."
+        printMessage "Phase 2.1: Configuring SSH..."
 
         sshKeyFile="/home/$username/.ssh/$hostname"
         sshConfigFile="/home/$username/.ssh/config"
@@ -145,8 +143,8 @@ case "$(getPreSetupPhase)" in
 
         read -p "Press ENTER to proceed..."
 
-        # Generate an SSH key pair to access GitHub
-        printMessage "Phase 2.3: Cloning setup branch..."
+        # Clone the setup branch
+        printMessage "Phase 2.2: Cloning setup branch..."
 
         git clone -b "$hostname/setup" --single-branch git@github.com:AndrejWolfenhaut/Nixos.git
 
