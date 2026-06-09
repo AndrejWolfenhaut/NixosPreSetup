@@ -158,3 +158,4 @@ case "$(getPreSetupPhase)" in
     *)
         throwMessage "Invalid pre-setup phase: $(setupPhase)!"
         ;;
+esac
