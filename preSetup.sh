@@ -46,7 +46,7 @@ setPreSetupPhase() {
 }
 
 resetPreSetupPhase() {
-    rm ./.preSetupPhase
+    rm -f ./.preSetupPhase
 }
 
 
@@ -157,7 +157,7 @@ case "$(getPreSetupPhase)" in
 
         # Clean up
         resetPreSetupPhase
-        rm -- "$0"
+        rm -f -- "$0"
         ;;
     *)
         throwMessage "Invalid pre-setup phase: $(setupPhase)!"
