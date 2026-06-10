@@ -3,7 +3,7 @@
 # Wipe existing partitions
 # Create GPT partition table
 # Create boot, root and swap partitions
-sudo parted /dev/nvme0n1 --script \
+sudo parted /dev/nvme0n1 --script -- \
   mklabel gpt \
   mkpart boot fat32 1MB 512MB \
   mkpart root ext4 512MB -8GB \
