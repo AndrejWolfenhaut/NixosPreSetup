@@ -53,3 +53,4 @@ echo
 sudo nixos-install
 
 read -s -p "Basic NixOS installation complete. Press ENTER to reboot..."
+sudo reboot
