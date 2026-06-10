@@ -1,12 +1,9 @@
 #! /usr/bin/env bash
 
-# Wipe existing partitions (we assume that there are three...)
+# Wipe existing partitions
 # Create GPT partition table
 # Create boot, root and swap partitions
 sudo parted /dev/nvme0n1 --script \
-  rm 1 \
-  rm 2 \
-  rm 3 \
   mklabel gpt \
   mkpart boot fat32 1MB 512MB \
   mkpart root ext4 512MB -8GB \
